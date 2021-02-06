@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+	KeyboardAvoidingView,
 	StyleSheet,
 	Text,
 	TextInput,
@@ -10,7 +11,7 @@ const Fill = (props: any) => {
 	const [authorName, setAuthorName] = useState<string>("");
 	const [storyTitle, setStoryTitle] = useState("");
 	return (
-		<View style={Styles.container}>
+		<KeyboardAvoidingView style={Styles.container}>
 			<View style={Styles.innerContainer}>
 				<View style={Styles.inputContainer}>
 					<Text>Author Name :-</Text>
@@ -51,7 +52,7 @@ const Fill = (props: any) => {
 				activeOpacity={0.5}>
 				<Text style={Styles.touchableText}>Write Your Story</Text>
 			</TouchableOpacity>
-		</View>
+		</KeyboardAvoidingView>
 	);
 };
 

@@ -1,6 +1,7 @@
 import { useRoute } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import {
+	KeyboardAvoidingView,
 	ScrollView,
 	StyleSheet,
 	Text,
@@ -25,7 +26,7 @@ const Write = (props: any) => {
 	}, []);
 	return (
 		<ScrollView scrollsToTop>
-			<View style={Styles.container}>
+			<KeyboardAvoidingView style={Styles.container}>
 				<View style={Styles.innerContainer}>
 					<View style={Styles.routerPropsContainer}>
 						<Text selectable selectionColor='#10a3c4'>
@@ -62,7 +63,7 @@ const Write = (props: any) => {
 					}}>
 					<Text style={Styles.touchableText}>View Your Masterpiece</Text>
 				</TouchableOpacity>
-			</View>
+			</KeyboardAvoidingView>
 		</ScrollView>
 	);
 };

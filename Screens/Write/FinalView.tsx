@@ -7,6 +7,7 @@ import {
 	ScrollView,
 	StyleSheet,
 	Text,
+	ToastAndroid,
 	TouchableOpacity,
 	View,
 } from "react-native";
@@ -45,9 +46,14 @@ const FinalView = (props: any) => {
 						? alert(
 								`Succesfully Added Data . Your Data Has Been Succesfully Added To Our Server`
 						  )
-						: Alert.alert(
+						: Platform.OS !== "android"
+						? Alert.alert(
 								"Succesfully Added Data",
 								"Your Data Has Been Succesfully Added To Our Server"
+						  )
+						: ToastAndroid.show(
+								`Succesfully Added Data. Your Data Has Been Succesfully Added To Our Server`,
+								ToastAndroid.SHORT
 						  );
 				}
 				props.navigation.navigate("Fill");
@@ -59,9 +65,14 @@ const FinalView = (props: any) => {
 						? alert(
 								`Error !! There Has Been An Error Entering Your Content. Error - ${err.message}`
 						  )
-						: Alert.alert(
+						: Platform.OS !== "android"
+						? Alert.alert(
 								"Error !!",
 								`There Has Been An Error Entering Your Content. Error - ${err.message}`
+						  )
+						: ToastAndroid.show(
+								`Error !!.There Has Been An Error Entering Your Content. Error - ${err.message}`,
+								ToastAndroid.SHORT
 						  );
 				}
 			});
