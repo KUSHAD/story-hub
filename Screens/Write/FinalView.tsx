@@ -20,7 +20,6 @@ const FinalView = (props: any) => {
 	] = useState<WriteStoryFinalViewScreenParams>({});
 	const router = useRoute();
 	useEffect(() => {
-		console.log(`Final View Screen Router Params ->`, router.params);
 		const filter = new Filter();
 		const filteredBookContent = filter.clean(router.params.bookContent);
 		const routerParams: WriteStoryFinalViewScreenParams = {
@@ -41,6 +40,48 @@ const FinalView = (props: any) => {
 			})
 			.then((data) => {
 				console.log(`Data added succesfully . Data -> ${data}`);
+				firebaseFirestore
+					.collection("User-Stories")
+					.doc(data.id)
+					.update({
+						id: data.id,
+					})
+					.then(() => {
+						{
+							Platform.OS === "web"
+								? alert(
+										`Succesfully Added Data . Your Data Has Been Succesfully Added To Our Server`
+								  )
+								: Platform.OS !== "android"
+								? Alert.alert(
+										"Succesfully Added Data",
+										"Your Data Has Been Succesfully Added To Our Server"
+								  )
+								: ToastAndroid.show(
+										`Succesfully Added Data. Your Data Has Been Succesfully Added To Our Server`,
+										6000
+								  );
+						}
+						props.navigation.navigate("Fill");
+					})
+					.catch((err) => {
+						console.log(`Error Entering The Data . Error -> ${err.message}`);
+						{
+							Platform.OS === "web"
+								? alert(
+										`Error !! There Has Been An Error Entering Your Content. Error - ${err.message}`
+								  )
+								: Platform.OS !== "android"
+								? Alert.alert(
+										"Error !!",
+										`There Has Been An Error Entering Your Content. Error - ${err.message}`
+								  )
+								: ToastAndroid.show(
+										`Error !!.There Has Been An Error Entering Your Content. Error - ${err.message}`,
+										6000
+								  );
+						}
+					});
 				{
 					Platform.OS === "web"
 						? alert(
@@ -53,7 +94,7 @@ const FinalView = (props: any) => {
 						  )
 						: ToastAndroid.show(
 								`Succesfully Added Data. Your Data Has Been Succesfully Added To Our Server`,
-								ToastAndroid.SHORT
+								6000
 						  );
 				}
 				props.navigation.navigate("Fill");

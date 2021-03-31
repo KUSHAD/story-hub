@@ -7,11 +7,16 @@ import {
 	TouchableOpacity,
 	View,
 } from "react-native";
+import { firebaseFirestore } from "../../firebase";
 const Fill = (props: any) => {
 	const [authorName, setAuthorName] = useState<string>("");
-	const [storyTitle, setStoryTitle] = useState("");
+	const [storyTitle, setStoryTitle] = useState<string>("");
+	const [storyTitleAvailable, setStoryTitleAvailable] = useState<boolean>(
+		false
+	);
+	const [availableMessage, setAvailableMessage] = useState<string>("");
 	return (
-		<KeyboardAvoidingView style={Styles.container}>
+		<KeyboardAvoidingView behavior='padding' style={Styles.container}>
 			<View style={Styles.innerContainer}>
 				<View style={Styles.inputContainer}>
 					<Text>Author Name :-</Text>
@@ -28,11 +33,35 @@ const Fill = (props: any) => {
 					<Text>{"      "}</Text>
 					<TextInput
 						value={storyTitle}
-						onChangeText={(text) => setStoryTitle(text)}
+						onChangeText={async (text) => {
+							await firebaseFirestore
+								.collection("User-Stories")
+								.get()
+								.then((datas) => {
+									setStoryTitle(text);
+									datas.docs.map((data) => {
+										if (data.data().storyTitle === text) {
+											setStoryTitleAvailable(false);
+											setAvailableMessage("Story Title Already Taken");
+										} else {
+											setStoryTitleAvailable(true);
+											setAvailableMessage("Story Title Is Available");
+										}
+									});
+								});
+						}}
 						placeholder='Story Title'
 						style={Styles.textInput}
 					/>
 				</View>
+				<Text
+					style={
+						storyTitleAvailable
+							? Styles.storyAvailable
+							: Styles.storyNotAvailable
+					}>
+					{availableMessage}
+				</Text>
 			</View>
 			<TouchableOpacity
 				onPress={() => {
@@ -43,9 +72,9 @@ const Fill = (props: any) => {
 					setAuthorName("");
 					setStoryTitle("");
 				}}
-				disabled={!authorName || !storyTitle}
+				disabled={!authorName || !storyTitle || !storyTitleAvailable}
 				style={
-					!authorName || !storyTitle
+					!authorName || !storyTitle || !storyTitleAvailable
 						? Styles.touchableDisabled
 						: Styles.touchable
 				}
@@ -97,5 +126,15 @@ const Styles = StyleSheet.create({
 		borderWidth: 2,
 		borderRadius: 8,
 		borderColor: "#000000",
+	},
+	storyAvailable: {
+		textAlign: "left",
+		margin: 15,
+		color: "#53ac7e",
+	},
+	storyNotAvailable: {
+		textAlign: "left",
+		margin: 15,
+		color: "red",
 	},
 });

@@ -17,7 +17,6 @@ const Write = (props: any) => {
 	const [storyContent, setStoryContent] = useState<string>("");
 	const router = useRoute();
 	useEffect(() => {
-		console.log(`Write Story Router Params ->`, router.params);
 		const routerParams: WriteStoryStackScreenParams = {
 			authorName: router.params.authorName,
 			bookTitle: router.params.storyTitle,
