@@ -1,9 +1,11 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import { MainWriteScreenStackNavigatorParams } from "../../types";
+import NotFound from "../NotFound";
 import Fill from "./Fill";
 import FinalView from "./FinalView";
 import Write from "./Write";
+
 const Stack = createStackNavigator<MainWriteScreenStackNavigatorParams>();
 const Details = () => {
 	return (
@@ -35,6 +37,7 @@ const Details = () => {
 					headerTitle: "View Your Masterpiece",
 				}}
 			/>
+			<Stack.Screen name='NotFound' component={NotFound} />
 		</Stack.Navigator>
 	);
 };

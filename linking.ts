@@ -3,8 +3,9 @@ import * as Linking from "expo-linking";
 export default {
 	prefixes: [Linking.makeUrl("/")],
 	config: {
-		initialRouteName: "Write",
+		initialRouteName: "Login",
 		screens: {
+			Login: "auth",
 			Write: {
 				screens: {
 					Fill: "fill-details",
@@ -15,8 +16,10 @@ export default {
 			Read: {
 				screens: {
 					Stories: "read",
+					Story: "story",
 				},
 			},
+			NotFound: "*",
 		},
 	},
 };

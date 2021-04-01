@@ -6,6 +6,7 @@ export type MainWriteScreenStackNavigatorParams = {
 	Fill?: undefined;
 	Write?: WriteStoryStackScreenParams;
 	FinalView?: WriteStoryFinalViewScreenParams;
+	NotFound?: undefined;
 };
 
 export type WriteStoryStackScreenParams = {
@@ -22,6 +23,7 @@ export type WriteStoryFinalViewScreenParams = {
 export type ReadScreenStackNavParams = {
 	Stories?: undefined;
 	Story?: ReadStoryNavParams;
+	NotFound?: undefined;
 };
 
 export type ReadStoryNavParams = {

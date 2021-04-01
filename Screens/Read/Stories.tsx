@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { FlatList, ScrollView } from "react-native";
+import { FlatList, ScrollView, TouchableOpacity } from "react-native";
 import { Card, SearchBar } from "react-native-elements";
 import { firebaseFirestore } from "../../firebase";
-export default function Stories() {
+export default function Stories({ navigation }) {
 	const [stories, setStories] = useState<any[]>([]);
 	const [searchString, setSearchString] = useState<string>("");
 	const searchStories = async (title: string) => {
@@ -44,34 +44,42 @@ export default function Stories() {
 			/>
 			<FlatList
 				renderItem={({ item, separators, index }) => (
-					<Card>
-						<Card.Title
-							h4
-							h4Style={{
-								textAlign: "left",
-							}}>
-							{item.data().storyTitle}
-						</Card.Title>
-						<Card.Title
-							style={{
-								textAlign: "left",
-							}}
-							textBreakStrategy='highQuality'>
-							By {item.data().storyTitle}
-						</Card.Title>
-						<Card.Divider />
-						<Card.Image
-							source={{
-								uri: `https://avatars.dicebear.com/4.5/api/identicon/${
-									item.data().storyTitle
-								}.svg`,
-							}}
-							style={{
-								width: "100%",
-								height: "100px",
-							}}
-						/>
-					</Card>
+					<TouchableOpacity
+						onPress={() => {
+							navigation.navigate("Story", {
+								id: item.data().id,
+							});
+						}}
+						activeOpacity={0.5}>
+						<Card>
+							<Card.Title
+								h4
+								h4Style={{
+									textAlign: "left",
+								}}>
+								{item.data().storyTitle}
+							</Card.Title>
+							<Card.Title
+								style={{
+									textAlign: "left",
+								}}
+								textBreakStrategy='highQuality'>
+								By {item.data().author}
+							</Card.Title>
+							<Card.Divider />
+							<Card.Image
+								source={{
+									uri: `https://avatars.dicebear.com/4.5/api/identicon/${
+										item.data().storyTitle
+									}.svg`,
+								}}
+								style={{
+									width: "100%",
+									height: "100px",
+								}}
+							/>
+						</Card>
+					</TouchableOpacity>
 				)}
 				keyExtractor={(item: object, index: number) => item.data().id}
 				data={stories}
