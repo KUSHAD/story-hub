@@ -39,7 +39,6 @@ const FinalView = (props: any) => {
 				createdAt: firebaseFirestoreTimeStamp,
 			})
 			.then((data) => {
-				console.log(`Data added succesfully . Data -> ${data}`);
 				firebaseFirestore
 					.collection("User-Stories")
 					.doc(data.id)

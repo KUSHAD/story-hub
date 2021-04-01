@@ -1,20 +1,14 @@
+import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-
+import { ReadScreenStackNavParams } from "../../types";
+import Stories from "./Stories";
+const Stack = createStackNavigator<ReadScreenStackNavParams>();
 const Read = () => {
 	return (
-		<View style={Styles.container}>
-			<Text>Read Screen</Text>
-		</View>
+		<Stack.Navigator initialRouteName='Stories'>
+			<Stack.Screen name='Stories' component={Stories} />
+		</Stack.Navigator>
 	);
 };
 
 export default Read;
-
-const Styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		justifyContent: "center",
-		alignItems: "center",
-	},
-});

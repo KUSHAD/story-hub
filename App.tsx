@@ -3,14 +3,16 @@ import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { Image } from "react-native";
+import linking from "./linking";
 import { ReadBookScreen, WriteBookDetailsScreen } from "./Screens";
 import { BottomTabParams } from "./types";
+
 const Tab = createMaterialBottomTabNavigator<BottomTabParams>();
 export default function App() {
 	return (
 		<>
 			<StatusBar style='auto' />
-			<NavigationContainer>
+			<NavigationContainer linking={linking}>
 				<Tab.Navigator
 					sceneAnimationEnabled
 					shifting

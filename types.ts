@@ -18,3 +18,12 @@ export type WriteStoryFinalViewScreenParams = {
 	bookTitle?: string;
 	bookContent?: string;
 };
+
+export type ReadScreenStackNavParams = {
+	Stories?: undefined;
+	Story?: ReadStoryNavParams;
+};
+
+export type ReadStoryNavParams = {
+	storyTitle?: string;
+};

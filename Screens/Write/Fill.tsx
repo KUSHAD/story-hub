@@ -42,10 +42,10 @@ const Fill = (props: any) => {
 									datas.docs.map((data) => {
 										if (data.data().storyTitle === text) {
 											setStoryTitleAvailable(false);
-											setAvailableMessage("Story Title Already Taken");
+											setAvailableMessage(`${text} Already Taken`);
 										} else {
 											setStoryTitleAvailable(true);
-											setAvailableMessage("Story Title Is Available");
+											setAvailableMessage(`${text} Is Available`);
 										}
 									});
 								});
